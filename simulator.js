@@ -1,7 +1,6 @@
 // simulator.js
-const LCG = require("./lcg");
-const exponentialRandom = require("./exp");
-
+import LCG from "./lcg.js"
+import { exponentialRandom } from "./exp.js"
 /**
  * Parâmetros de entrada da simulação:
  * @typedef {Object} SimulationParams
@@ -22,7 +21,7 @@ const exponentialRandom = require("./exp");
  * @property {number} averageServiceTime – tempo médio de serviço (minutos)
  * @property {number} utilization – fração do tempo em que o servidor esteve ocupado (0 a 1)
  */
-class Simulator {
+export default class Simulator {
   constructor({ seed, lambda, mu, tMax }) {
     this.rng = new LCG(seed);
     this.lambda = lambda;
@@ -145,9 +144,12 @@ class Simulator {
    */
   startService() {
     if (this.queue.length === 0) {
+      // console.log("Fila vazia")
       return;
     }
     // retira da fila (FIFO)
+     // console.log(`Fila antes do atendimento ${this.queue.length}`)
+    // console.log("Comecou atendimento")
     const client = this.queue.shift();
     client.serviceStartTime = this.currentTime;
 
@@ -179,6 +181,8 @@ class Simulator {
     this.serverBusy = false;
     this.currentCustomer = null;
     this.nextDeparture = Infinity;
+
+    // console.log("Fim de atendimento")
 
     // se ainda há gente na fila, inicia atendimento do próximo imediatamente
     if (this.queue.length > 0) {
@@ -220,5 +224,3 @@ class Simulator {
     };
   }
 }
-
-module.exports = Simulator;

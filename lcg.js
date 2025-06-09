@@ -1,6 +1,6 @@
 // lcg.js
 // Implementa um LCG simples para gerar uniformes em [0,1), a partir de uma seed inteira.
-class LCG {
+export default class LCG {
     /**
      * @param {number} seed – inteiro de 0 até mod-1
      */
@@ -31,7 +31,4 @@ class LCG {
       // nextInt() retorna inteiro em [0, modulus)
       return this.nextInt() / this.modulus;
     }
-  }
-  
-  module.exports = LCG;
-  
+  }  
